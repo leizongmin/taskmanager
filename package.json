@@ -1,0 +1,20 @@
+{
+  "name":           "quickweb-manager",
+  "main":           "./index.js",
+  "version":        "0.4.0",
+  "description":    "QuickWeb process manager",
+  "author":         "leizongmin <leizongmin@gmail.com> (http://ucdok.com)",
+  "repository": {
+    "type": "git",
+    "url":  "git://github.com/quickweb/quickweb-manager.git"
+  },
+  "engines": {
+    "node":         ">= 0.6.0"
+  },
+  "dependencies":	{
+    "quickweb-base":    ">= 0.4.0",
+    "quickweb-runner":  ">= 0.4.0",
+    "quickweb-mvc":     ">= 0.4.0",
+    "tracer":           "*"
+  }
+}

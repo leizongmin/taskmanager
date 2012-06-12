@@ -1,0 +1,19 @@
+<table width="100%">
+  <tr>
+    <td width="100">ID</td>
+    <td width="100">类型</td>
+    <td>说明</td>
+    <td width="200">操作</td>
+  </tr>
+  {% for task in list %}
+  <tr>
+    <td>{{task.id}}</td>
+    <td>{{task.type}}</td>
+    <td>{{task.status}}</td>
+    <td>
+      <a href="/plusui/{{task.type}}.app/#/status/{{task.id}}" class="btn">详细信息</a>
+      <a href="#/task/stop/{{task.id}}" class="btn">停止</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>

@@ -1,0 +1,16 @@
+<table width="100%">
+  <tr>
+    <td width="200">名称</td>
+    <td>说明</td>
+    <td width="200">操作</td>
+  </tr>
+  {% for plus in list %}
+  <tr>
+    <td>{{plus.name}}</td>
+    <td>{{plus.about}}</td>
+    <td>
+      <a href="#/" class="btn">重新载入</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>

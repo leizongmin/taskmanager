@@ -1,0 +1,94 @@
+body {
+  max-width: 1200px;
+  margin: auto;
+  font-size: 14px;
+}
+a {
+  color: #08C;
+  text-decoration: underline;
+}
+a:hover {
+  color: #005580;
+  text-decoration: none;
+}
+nav a {
+  padding: 4px 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+nav a:hover {
+  color: #FFF;
+  background-color: #005580;
+}
+a.btn {
+  padding: 4px;
+}
+a.btn:hover {
+  color: #FFF;
+  background-color: #005580;
+}
+.top-bar {
+  border-bottom: 1px solid #AAA;
+  padding-bottom: 4px;
+  margin-bottom: 12px;
+}
+.top-bar .logo {
+  width: 200px;
+}
+.top-nav {
+  width: 70%;
+  padding: 20px 8px;
+  background-color: #EEE;
+  float: right;
+}
+.left-side {
+  width: 15%;
+  padding: 20px 8px;
+  background-color: #EEE;
+  float: left;
+}
+.main {
+  width: 75%;
+  float: left;
+  margin-left: 5%;
+}
+#main-iframe {
+  border: none;
+  width: 100%;
+}
+
+table {
+  border: 1px solid #CCC;
+  padding: 4px;
+  box-shadow: 2px 2px 4px #CCC;
+  border-collapse:collapse
+}
+tr:first-child {
+  background-color: #004154;
+  color: #EEE;
+  font-weight: bold;
+}
+/*
+tr:hover {
+  cursor: pointer;
+  background-color: #D9EDF7;
+  color: #3A87AD;
+}
+*/
+td {
+  padding: 4px;
+  padding-left: 8px;
+  text-align: left;
+  border-bottom: 1px solid #888;
+  border-left: 1px dashed #888;
+}
+tr:first-child td {
+  border-left: 1px solid #EEE;
+}
+tr:first-child td:first-child, td:first-child {
+  border-left: none;
+}
+textarea {
+  min-height: 200px;
+  width: 98%;
+}

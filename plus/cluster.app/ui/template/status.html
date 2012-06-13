@@ -1,0 +1,28 @@
+<table width="100%">
+  <tr>
+    <td width="200">属性</td>
+    <td>值</td>
+  </tr>
+  <tr>
+    <td>进程PID</td>
+    <td>{{pid}}</td>
+  </tr>
+</table>
+{% if workers.length > 0 %}
+<table width="100%">
+  <tr>
+    <td width="100">子进程PID</td>
+    <td width="200">启动时间</td>
+    <td>操作</td>
+  </tr>
+  {% for worker in workers %}
+  <tr>
+    <td>{{worker.pid}}</td>
+    <td>{{worker.timestamp}}</td>
+    <td><a href="#/kill/{{worker.pid}}">结束</a></td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>没有启动任何子进程！</p>
+{% endif %}

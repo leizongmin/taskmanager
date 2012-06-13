@@ -1,0 +1,58 @@
+<table width="100%">
+  <tr>
+    <td width="200">属性</td>
+    <td>值</td>
+  </tr>
+  <tr>
+    <td>主机名</td>
+    <td>{{hostname}}</td>
+  </tr>
+  <tr>
+    <td>操作系统类型</td>
+    <td>{{systemtype}}</td>
+  </tr>
+  <tr>
+    <td>操作系统版本</td>
+    <td>{{release}}</td>
+  </tr>
+  <tr>
+    <td>操作系统已运行时间</td>
+    <td>{{uptime | divided_by:3600}}小时</td>
+  </tr>
+  <tr>
+    <td>Node.js版本</td>
+    <td>{{node.ver}}</td>
+  </tr>
+  <tr>
+    <td>Node.js路径</td>
+    <td>{{node.path}}</td>
+  </tr>
+  <tr>
+    <td>V8版本</td>
+    <td>{{node.v8}}</td>
+  </tr>
+  <tr>
+    <td>OpenSSL版本</td>
+    <td>{{node.openssl}}</td>
+  </tr>
+  <tr>
+    <td>TaskManager版本</td>
+    <td>{{taskmanager.ver}}</td>
+  </tr>
+  <tr>
+    <td>TaskManager路径</td>
+    <td>{{taskmanager.path}}</td>
+  </tr>
+  <tr>
+    <td>TaskManager已运行时间</td>
+    <td>{{taskmanager.uptime | divided_by:3600}}小时</td>
+  </tr>
+  <tr>
+    <td>物理内存</td>
+    <td>{{totalmem | divided_by:1048576}}MB</td>
+  </tr>
+  <tr>
+    <td>空闲内存</td>
+    <td>{{freemem | divided_by:1048576}}MB</td>
+  </tr>
+</table>

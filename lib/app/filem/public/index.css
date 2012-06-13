@@ -1,0 +1,34 @@
+.top-side {
+  padding: 8px;
+  background-color: #EEE;
+}
+.file-list {
+  margin: auto;
+}
+.top-side tr:first-child {
+  background-color: #EEE;
+  font-weight: normal;
+  color: #000;
+}
+input#filepath {
+  width: 95%;
+  border: 1px solid #888;
+  padding: 4px 12px;
+  font-size: 14px;
+}
+.editor {
+  padding: 8px;
+  background-color: #EEE;
+}
+.editor input, .editor textarea {
+  border: 1px solid #888;
+  font-size: 14px;
+}
+#editor-filename {
+  width: 80%;
+  padding: 4px 12px;
+}
+#editor-data {
+  height: 400px;
+  padding: 4px;
+}

@@ -1,6 +1,6 @@
 {
-  "name":           "quickweb-manager",
-  "main":           "./index.js",
+  "name":           "taskmanager",
+  "main":           "./lib/server.js",
   "version":        "0.4.0",
   "description":    "QuickWeb process manager",
   "author":         "leizongmin <leizongmin@gmail.com> (http://ucdok.com)",

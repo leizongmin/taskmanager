@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>应用管理</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/index.css" media="screen" />
+<link rel="stylesheet" href="index.css" media="screen" />
+</head>
+<body>
+  <div id="top" class="top-side">
+    <table width="100%">
+      <tr>
+        <td width="340">
+          <a href="#/" class="btn">首页</a>
+          <a href="#/create/file" class="btn">新建文件</a>
+          <a href="#/create/dir" class="btn">新建文件夹</a>
+          <a href="#/back" class="btn">后退</a>
+          <a href="#/forward" class="btn">前进</a>
+          <a href="#/refresh" class="btn">刷新</a>
+        </td>
+        <td width="40">路径:</td>
+        <td>
+          <input id="filepath" type="text">
+        </td>
+        <td width="60">
+          <button onclick="location = '#/?path=' + $('input#filepath').val().trim();">转到</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="main" class="file-list"></div>
+</body>
+</html>
+<script src="/jquery.js"></script>
+<script src="quickwebmvc.js"></script>
+<script src="tinyliquid.js"></script>
+<script src="app.js"></script>
+<script src="index.js"></script>

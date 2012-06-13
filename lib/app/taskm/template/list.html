@@ -5,6 +5,7 @@
     <td>说明</td>
     <td width="200">操作</td>
   </tr>
+  {% if list.length > 0 %}
   {% for task in list %}
   <tr>
     <td>{{task.id}}</td>
@@ -16,4 +17,9 @@
     </td>
   </tr>
   {% endfor %}
+  {% else %}
+  <tr>
+    <td colspan="4">暂时没有启动任何应用！</td>
+  </tr>
+  {% endif %}
 </table>

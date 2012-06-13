@@ -1,0 +1,35 @@
+<table width="100%">
+  <tr>
+    <td width="360">名称</td>
+    <td width="200">修改日期</td>
+    <td width="80">类型</td>
+    <td width="80">大小</td>
+    <td>操作</td>
+  </tr>
+  {% if list.length > 0 %}
+  {% for file in list %}
+  <tr>
+    <td>
+      {% if file.type == 'file' %}
+        <a href="/admin/file/view?path={{file.path}}" target="_blank">{{file.name}}</a>
+      {% else %}
+        <a href="#/?path={{file.path}}">{{file.name}}</a>
+      {% endif %}
+    </td>
+    <td>{{file.mtime}}</td>
+    <td>{% if file.type == 'dir' %}文件夹{% else %}文件{% endif %}</td>
+    <td>{{file.size}}</td>
+    <td>
+      {% if file.type == 'file' %}
+      <a href="/admin/file/view?path={{file.path}}" target="_blank">浏览</a>
+      <a href="#/file/edit?path={{file.path}}">编辑</a>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+  {% else %}
+  <tr>
+    <td colspan="3">该文件夹为空！</td>
+  </tr>
+  {% endif %}
+</table>

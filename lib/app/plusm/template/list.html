@@ -4,6 +4,7 @@
     <td>说明</td>
     <td width="200">操作</td>
   </tr>
+  {% if list.length > 0 %}
   {% for plus in list %}
   <tr>
     <td>{{plus.name}}</td>
@@ -13,4 +14,9 @@
     </td>
   </tr>
   {% endfor %}
+  {% else %}
+  <tr>
+    <td colspan="3">没有找到任何插件！</td>
+  </tr>
+  {% endif %}
 </table>

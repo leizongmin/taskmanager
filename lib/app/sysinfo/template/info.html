@@ -17,7 +17,7 @@
   </tr>
   <tr>
     <td>操作系统已运行时间</td>
-    <td>{{uptime | divided_by:3600}}小时</td>
+    <td>{{uptime | divided_by:3600 | round: 1}}小时</td>
   </tr>
   <tr>
     <td>Node.js版本</td>
@@ -45,14 +45,14 @@
   </tr>
   <tr>
     <td>TaskManager已运行时间</td>
-    <td>{{taskmanager.uptime | divided_by:3600}}小时</td>
+    <td>{{taskmanager.uptime | divided_by:3600 | round: 1}}小时</td>
   </tr>
   <tr>
     <td>物理内存</td>
-    <td>{{totalmem | divided_by:1048576}}MB</td>
+    <td>{{totalmem | divided_by:1048576 | integer}}MB</td>
   </tr>
   <tr>
     <td>空闲内存</td>
-    <td>{{freemem | divided_by:1048576}}MB</td>
+    <td>{{freemem | divided_by:1048576 | integer}}MB</td>
   </tr>
 </table>

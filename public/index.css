@@ -3,6 +3,28 @@ body {
   margin: auto;
   font-size: 14px;
 }
+.online-logs {
+  position: fixed;
+  z-index: 1010;
+  bottom: 0px;
+  height: 40%;
+  width: 100%;
+  background-color: #222;
+  color: #CCC;
+  font-size: 14px;
+  opacity: 0.9;
+  max-width: 1200px;
+  border: 1px solid #888;
+  box-shadow: 2px 2px 4px #888;
+}
+.online-logs .log-lines {
+  padding: 8px;
+  line-height: 1.6em;
+  overflow-y: scroll;
+}
+.log-lines pre {
+  margin: 0px;
+}
 a {
   color: #08C;
   text-decoration: underline;

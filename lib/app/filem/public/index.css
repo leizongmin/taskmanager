@@ -5,6 +5,9 @@
 .file-list {
   margin: auto;
 }
+.filetype-dir {
+  background-color: #FFFBF4;
+}
 .top-side tr:first-child {
   background-color: #EEE;
   font-weight: normal;

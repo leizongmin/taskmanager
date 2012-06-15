@@ -6,7 +6,7 @@ $(document).ready(function () {
       $w = $(window);
       $h = $('.top-bar');
       $me = $('#main-iframe');
-      $me.height($w.height() - $h.height() - 28);
+      $me.height($w.height() - $h.height() - 58);
       $('#online-logs .log-lines').height($('#online-logs').height() - 50);
     };
     $(window).resize(windowResize);

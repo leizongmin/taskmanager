@@ -38,9 +38,22 @@ $(document).ready(function () {
   };
   
   var $out = $('#online-logs .log-lines');
+  var color = {
+    info:   'cyan',
+    debug:  'green',
+    error:  'red',
+    warn:   'yellow'
+  };
   var onLine = function (msg) {
-    $out.append('<pre>' + msg + '</pre>')
-    $out.scrollTop(100000);
+    var type = (msg + '').split(' ');
+    type = '' + type[3];
+    type = type.substr(1, type.length - 2).toLowerCase();
+    var c = color[type];
+    if (c)
+      $out.append('<pre style="color:' + c + '">' + msg + '</pre>');
+    else
+      $out.append('<pre>' + msg + '</pre>');
+    $out.scrollTop(1000000);
     console.log(msg);
   };
     

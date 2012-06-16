@@ -1,1 +1,3 @@
-winnode lib/server.js
+cd example
+winnode ../lib/server.js
+cd ..

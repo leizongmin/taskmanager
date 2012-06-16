@@ -75,12 +75,13 @@ a.btn:hover {
   width: 15%;
   padding: 20px 8px;
   background-color: #EEE;
-  float: left;
+  position: fixed;
+  left: 0px;
+  top: 0px;
 }
 .main {
   width: 75%;
-  float: left;
-  margin-left: 5%;
+  margin-left: 20%;
 }
 #main-iframe {
   border: none;

@@ -38,7 +38,7 @@ var logFilter = function (type, obj) {
     onLine('获取连接密码...', 'info');
     $.getJSON('/admin/api/socket.io/key', {r: Math.random()}, function (d) {
       onLine('连接到服务器...', 'info');
-      socket = io.connect('http://localhost/?key=' + d.key);
+      socket = io.connect('/?key=' + d.key);
       socket.on('connect', onConnection)
             .on('disconnect', onDisconnect)
             .on('line', onLine);

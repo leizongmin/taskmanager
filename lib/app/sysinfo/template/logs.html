@@ -1,0 +1,14 @@
+<table width="100%">
+  <tr>
+    <td width="160">时间戳</td>
+    <td width="120">IP地址</td>
+    <td>URL</td>
+  </tr>
+  {% for line in list %}
+  <tr>
+    <td>{{line.timestamp | date}}</td>
+    <td>{{line.ip}}</td>
+    <td>{{line.url | escape}}</td>
+  </tr>
+  {% endfor %}
+</table>

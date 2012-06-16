@@ -2,11 +2,11 @@
   "name":           "taskmanager",
   "main":           "./lib/server.js",
   "version":        "0.1.0",
-  "description":    "QuickWeb process manager",
+  "description":    "Node.js file runner and manager",
   "author":         "leizongmin <leizongmin@gmail.com> (http://ucdok.com)",
   "repository": {
     "type": "git",
-    "url":  "git://github.com/quickweb/quickweb-manager.git"
+    "url":  "git://github.com/quickweb/taskmanager.git"
   },
   "engines": {
     "node":         ">= 0.6.0"

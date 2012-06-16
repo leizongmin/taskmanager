@@ -13,7 +13,6 @@
   },
   "dependencies":	{
     "quickweb-base":    ">= 0.4.0",
-    "quickweb-runner":  ">= 0.4.0",
     "quickweb-mvc":     ">= 0.4.0",
     "socket.io":        ">= 0.9.6"
   }

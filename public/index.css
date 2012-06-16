@@ -5,8 +5,11 @@ body {
 }
 body.home-page {
   border: 1px solid #EEE;
-  padding: 4px;
+  padding: 0px 4px 0px 0px;
   box-shadow: 2px 2px 4px #EEE;
+}
+.logo {
+  padding: 4px 0px 0px 12px;
 }
 .online-logs {
   position: fixed;

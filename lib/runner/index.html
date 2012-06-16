@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>进程管理器</title>
+<meta charset="utf-8">
+<style>
+body {
+  width: 600px;
+  margin: auto;
+  border: 1px solid #777;
+  padding: 8px;
+  box-shadow: 2px 2px 8px #777;
+  font-size: 14px;
+}
+td {
+  padding: 4px;
+}
+#process {
+  margin-top: 20px;
+  border: 1px solid #EEE;
+}
+#op {
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+  <h1>进程管理器</h1>
+  <div>
+    程序入口文件名：<span id="mainfile"></span>
+  </div>
+  <div id="process">
+    正在获取...
+  </div>
+  <div id="op">
+    <a href="#" onclick="fork()">增加子进程</a> |
+    <a href="#" onclick="killAll()">结束所有子进程</a> |
+    <a href="#" onclick="exit()">退出程序</a>
+  </div>
+</body>
+<html>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+<script>
+function update () {
+  $.get('/workers', function (ps) {
+    var html = '<table width="100%"><tr><td width="100">PID</td><td>启动时间</td><td>操作</td></tr>';
+    ps.forEach(function (p) {
+      html += '<tr><td>' + p.pid + '</td><td>' + new Date(p.timestamp) + '</td><td>'
+            + '<a href="#" onclick="kill(' + p.pid + ')">结束</a>'
+            + '</td></tr>';
+    });
+    html += '</table>';
+    $('#process').html(html);
+  });
+}
+function kill (pid) {
+  $.post('/worker/' + pid + '/kill', function (ret) {
+    if (!ret.success)
+      alert('失败！');
+    setTimeout(update, 1000);
+  });
+}
+function fork () {
+  $.post('/workers/fork', function (ret) {
+    if (!ret.pid)
+      alert('失败！');
+    setTimeout(update, 1000);
+  });
+}
+function killAll () {
+  $.post('/workers/kill', function (ret) {
+    if (ret.success < 1)
+      alert('失败！');
+    setTimeout(update, 1000);
+  });
+}
+function exit (pid) {
+  $.post('/exit', function (ret) {
+    if (ret.success)
+      alert('主进程已结束！');
+  });
+}
+function info () {
+  $.get('/info', function (d) {
+    $('#mainfile').text(d.main);
+  });
+};
+
+update();
+info();
+setInterval(update, 60000);
+</script>

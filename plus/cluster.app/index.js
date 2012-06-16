@@ -4,7 +4,7 @@
  * @author 老雷<leizongmin@gmail.com>
  */
  
-var runner = require('quickweb-runner');
+var runner = require('../../lib/runner');
 var path = require('path');
 var util = require('util');
 var events = require('events');

@@ -31,6 +31,13 @@
         <button onclick="$('.log-lines pre').remove()">清空</button>
       </div>
       控制台输出
+      <input type="checkbox" onclick="logFilter('debug', this)" checked="checked">Debug
+      <input type="checkbox" onclick="logFilter('log', this)" checked="checked">Log
+      <input type="checkbox" onclick="logFilter('info', this)" checked="checked">Info
+      <input type="checkbox" onclick="logFilter('warn', this)" checked="checked">Warn
+      <input type="checkbox" onclick="logFilter('error', this)" checked="checked">Error
+      <input type="checkbox" onclick="logFilter('stdout', this)" checked="checked">StdOut
+      <input type="checkbox" onclick="logFilter('stderr', this)" checked="checked">StdErr
       <div style="clear:both"></div>
     </div>
     <div class="log-lines"></div>

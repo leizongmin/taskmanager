@@ -119,3 +119,32 @@ textarea {
   min-height: 200px;
   width: 98%;
 }
+.logtype-log {
+  
+}
+.logtype-info {
+  color: cyan;
+}
+.logtype-debug {
+  color: green;
+}
+.logtype-error {
+  color: red;
+}
+.logtype-warn {
+  color: yellow;
+}
+.logtype-stdout {
+  
+}
+.logtype-stderr {
+  color: red;
+}
+.log-appname {
+  padding: 0px 4px;
+  border: 1px solid;
+  margin-right: 20px;
+}
+.logtype-stderr .log-appname {
+  color: red;
+}

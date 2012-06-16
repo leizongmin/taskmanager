@@ -44,10 +44,9 @@ $(document).ready(function () {
     error:  'red',
     warn:   'yellow'
   };
-  var onLine = function (msg) {
-    var type = (msg + '').split(' ');
-    type = '' + type[3];
-    type = type.substr(1, type.length - 2).toLowerCase();
+  var onLine = function (msg, type) {
+    if (typeof msg !== 'string')
+      return console.error('接收信息出错：', msg, type);
     var c = color[type];
     if (c)
       $out.append('<pre style="color:' + c + '">' + msg + '</pre>');

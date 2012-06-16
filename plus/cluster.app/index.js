@@ -65,6 +65,12 @@ var appInstance = function (p, config) {
   this.process = p;
   this.config = config;
   var self = this;
+  p.stdout.on('data', function (data) {
+    self.emit('log', data, 'out');
+  });
+  p.stderr.on('data', function (data) {
+    self.emit('log', data, 'err');
+  });
   p.on('exit', function () {
     self.emit('exit');
   });

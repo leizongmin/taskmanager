@@ -6,9 +6,9 @@
 <link rel="stylesheet" href="index.css" media="screen" />
 <base target="main-iframe">
 </head>
-<body>
+<body class="home-page">
   <header class="top-bar">
-    <img src="logo.png" class="logo">
+    <a href="welcome.html"><img src="logo.png" class="logo"></a>
     <div class="top-nav">
       <nav>
         <a href="/app/taskm/">进程</a>
@@ -30,7 +30,7 @@
         <button onclick="$('#online-logs').css('height', 30)">收起</button>
         <button onclick="$('.log-lines pre').remove()">清空</button>
       </div>
-      在线日志
+      控制台输出
       <div style="clear:both"></div>
     </div>
     <div class="log-lines"></div>

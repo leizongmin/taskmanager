@@ -3,6 +3,11 @@ body {
   margin: auto;
   font-size: 14px;
 }
+body.home-page {
+  border: 1px solid #EEE;
+  padding: 4px;
+  box-shadow: 2px 2px 4px #EEE;
+}
 .online-logs {
   position: fixed;
   z-index: 1010;

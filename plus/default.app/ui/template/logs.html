@@ -4,7 +4,7 @@
   </tr>
   <tr>
     <td>
-    <pre>{% for line in stdout %}{{line}}{% endfor %}</pre>
+    <pre>{% for line in stdout %}{{line | escape}}{% endfor %}</pre>
     </td>
   </tr>
 </table>
@@ -14,7 +14,7 @@
   </tr>
   <tr>
     <td>
-    <pre>{% for line in stderr %}{{line}}{% endfor %}</pre>
+    <pre>{% for line in stderr %}{{line | escape}}{% endfor %}</pre>
     </td>
   </tr>
 </table>

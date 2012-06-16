@@ -16,57 +16,6 @@ $(document).ready(function () {
 });
 
 
-// 在线日志
-(function () {
-  var socket;
-  
-  var connectToServer = function () {
-    console.log('获取连接密码...');
-    $.getJSON('/admin/api/socket.io/key', {r: Math.random()}, function (d) {
-      console.log('连接到服务器...');
-      socket = io.connect('http://localhost/?key=' + d.key);
-      socket.on('connect', onConnection)
-            .on('disconnect', onDisconnect)
-            .on('line', onLine);
-    });
-  };
-  
-  var onConnection = function () {
-    console.log('连接服务器成功。');
-  };
-  
-  var onDisconnect = function () {
-    console.log('与服务器断开连接！');
-    connectToServer();
-  };
-  
-  var $out = $('#online-logs .log-lines');
-  var onLine = function (msg, type) {
-    if (typeof msg !== 'string')
-      return console.error('接收信息出错：', msg, type, appname);
-    if (!type)
-      type = 'log';
-    else {
-      var _type = type.split(':');
-      if (_type.length >= 2) {
-        var appname = _type[0];
-        type = _type[1];
-      }
-    }
-    if (logFilterSwitch[type] === false)
-      var style = 'display: none;';
-    else
-      var style = '';
-    if (appname)
-      msg = '<span class="log-appname">' + appname + '</span>' + msg;
-    $out.append('<pre class="logtype-' + type + '" style="' + style + '">' + msg + '</pre>');
-    $out.scrollTop(1000000);
-    // console.log(msg);
-  };
-    
-  connectToServer();
-})();
-
 // 过滤日志
 var logFilterSwitch = {};
 var logFilter = function (type, obj) {
@@ -80,3 +29,69 @@ var logFilter = function (type, obj) {
     $('.logtype-' + type).hide();
   }
 };
+
+// 在线日志
+(function () {
+  var socket;
+  
+  var connectToServer = function () {
+    onLine('获取连接密码...', 'info');
+    $.getJSON('/admin/api/socket.io/key', {r: Math.random()}, function (d) {
+      onLine('连接到服务器...', 'info');
+      socket = io.connect('http://localhost/?key=' + d.key);
+      socket.on('connect', onConnection)
+            .on('disconnect', onDisconnect)
+            .on('line', onLine);
+    });
+  };
+  
+  var onConnection = function () {
+    onLine('连接服务器成功。', 'info');
+  };
+  
+  var onDisconnect = function () {
+    onLine('与服务器断开连接！正尝试重新连接，如果长时间无法连接，建议刷新页面。', 'warn');
+    connectToServer();
+  };
+  
+  var escapeString = escape = function (input) {
+    return String(input)
+      .replace(/&(?!\w+;)/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  };
+  
+  var $out = $('#online-logs .log-lines');
+  var logsCount = 0;
+  var onLine = function (msg, type) {
+    if (typeof msg !== 'string')
+      msg = String(msg);
+    if (logsCount++ >= 1000) {
+      $('.log-lines pre:lt(500)').remove();
+      logsCount = 500;
+    }
+    if (!type)
+      type = 'log';
+    else {
+      var _type = type.split(':');
+      if (_type.length >= 2) {
+        var appname = _type[0];
+        type = _type[1];
+      }
+    }
+    if (logFilterSwitch[type] === false)
+      var style = 'display: none;';
+    else
+      var style = '';
+    msg = escapeString(msg);
+    if (appname)
+      msg = '<span class="log-appname">' + appname + '</span>' + msg;
+    $out.append('<pre class="logtype-' + type + '" style="' + style + '">' + msg + '</pre>');
+    $out.scrollTop(1000000);
+    // console.log(msg);
+  };
+    
+  connectToServer();
+})();
+

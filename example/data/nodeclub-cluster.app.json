@@ -1,0 +1,6 @@
+{
+  "name":     "nodeclub",
+  "main":     "f:\\nodeclub\\nodeclub\\app.js",
+  "type":     "cluster",
+  "cluster":  2
+}

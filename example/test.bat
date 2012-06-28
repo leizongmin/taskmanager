@@ -1,1 +1,1 @@
-winnode ../lib/server.js
+winnode-0.6 ../lib/server.js

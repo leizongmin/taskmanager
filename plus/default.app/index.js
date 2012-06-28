@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * taskmanager plus: default
  *

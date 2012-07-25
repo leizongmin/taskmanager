@@ -33,16 +33,24 @@ var logFilter = function (type, obj) {
 // 在线日志
 (function () {
   var socket;
-  
+
   var connectToServer = function () {
-    onLine('获取连接密码...', 'info');
-    $.getJSON('/admin/api/socket.io/key', {r: Math.random()}, function (d) {
-      onLine('连接到服务器...', 'info');
-      socket = io.connect('/?key=' + d.key);
-      socket.on('connect', onConnection)
-            .on('disconnect', onDisconnect)
-            .on('line', onLine);
-    });
+    var tid = 0;
+    var connect = function () {
+      onLine('获取连接密码...', 'info');
+      $.getJSON('/admin/api/socket.io/key?' + new Date().getTime(), {r: Math.random()}, function (d) {
+        onLine('连接到服务器...', 'info');
+        socket = io.connect('/?key=' + d.key);
+        socket.on('connect', onConnection)
+              .on('disconnect', onDisconnect)
+              .on('line', onLine)
+              .on('connect', function () {
+                clearInterval(tid);
+              });
+      });
+    };
+    tid = setInterval(connect, 30000);
+    connect();
   };
   
   var onConnection = function () {

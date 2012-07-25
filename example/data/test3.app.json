@@ -1,1 +1,6 @@
-{"name":"test3","main":"data/test3.js","type":"default"}
+{
+  "name":   "test3",
+  "main":   "data/test3.js",
+  "type":   "default",
+  "log":    "/tmp/logs/test3.log"
+}

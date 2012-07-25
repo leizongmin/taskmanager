@@ -133,5 +133,5 @@ appInstance.prototype.logs = function (callback) {
  * @param {function} callback
  */
 appInstance.prototype.exec = function (cmd, args, callback) {
-  return callback(new Error('Not support cmd "' + cmd + '".'));
+  return callback(new Error('Not support command "' + cmd + '".'));
 };

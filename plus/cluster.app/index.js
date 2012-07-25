@@ -142,6 +142,6 @@ appInstance.prototype.exec = function (cmd, args, callback) {
     case 'killall':
       return this.process.api.killAll(callback);
     default:
-      return callback(new Error('Not support cmd "' + cmd + '".'));
+      return callback(new Error('Not support command "' + cmd + '".'));
   }
 };

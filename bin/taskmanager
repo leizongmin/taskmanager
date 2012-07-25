@@ -1,0 +1,102 @@
+#!/usr/bin/env node
+
+'use strict';
+
+/**
+ * taskmanager cli
+ *
+ * @author 老雷<leizongmin@gmail.com>
+ */
+
+
+var args = {
+  path:     '.',      // 运行目录
+  service:  false,    // 以后台服务形式运行
+  logger:   'info'    // 日志输出等级
+};
+
+(function () {
+  var help = '\n\
+Node.js taskmanager command line tool.\n\
+\n\
+Usage:\n\
+\n\
+        taskmanager [option]\n\
+\n\
+The options are:\n\
+\n\
+    -path [path]      set the working directory\n\
+    -service          run as a background service\n\
+    -logger [level]   set log output level\n\
+\n\
+Example:\n\
+\n\
+    taskmanager -path /app/test -logger warn -service\n\
+\n\
+For more information, please vist https://github.com/quickweb/taskmanager\n\
+  ';
+  var opts = process.argv.slice(2);
+  for (var i = 0; i < opts.length; i++) {
+    if (opts[i][0] !== '-')
+      continue;
+    var k = opts[i].substr(1).toLowerCase();
+    var j = i + 1;
+    var v = opts[j] && opts[j];
+    if (k === 'service' || k === 's') {
+      args.service = true;
+    } else if (k === 'path' || k === 'p') {
+      args.path = v || args.path;
+    } else if (k === 'logger' || k === 'l') {
+      args.logger = v || args.logger;
+    } else if (k === 'help' || k === 'h') {
+      console.log(help);
+      process.exit();
+    }
+  }
+  var lines = [];
+  for (var i in args) {
+    lines.push(i + '=' + args[i]);
+  }
+  console.log(lines.join(', '));
+})();
+
+// 工作目录
+process.chdir(args.path);
+
+// 日志输出等级
+(function () {
+  var logger = require('../lib/logger');
+  var level = {
+    error:    1,
+    warn:     2,
+    info:     3,
+    log:      4,
+    debug:    5
+  };
+  var n = level[args.logger];
+  if (!n) {
+    n = level.info;
+  }
+  for (var i in logger) {
+    if (typeof logger[i] === 'function' && i in level) {
+      var n2 = level[i];
+      if (n2 > n) {
+        logger[i] = function () {};
+      }
+    }
+  }
+})();
+
+// 启动服务器
+(function () {
+  var child_process = require('child_process');
+  var fs = require('fs');
+  var path = require('path');
+  if (args.service) {
+    console.log('Not support.');
+  } else {
+    require('../lib/server');
+  }
+
+})();
+

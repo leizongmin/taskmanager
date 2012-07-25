@@ -29,6 +29,7 @@ The options are:\n\
     -service            run as a background service\n\
     -logger [level]     set log output level\n\
     -passwd [password]  encrypt password string and print\n\
+    -stop               stop the taskmanager process\n\
 \n\
 Example:\n\
 \n\
@@ -58,6 +59,15 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
         console.log('================================================');
         console.log('|    ' + utils.encryptPassword(v) + '    |');
         console.log('================================================');
+        process.exit();
+      })();
+    } else if (k === 'stop') {
+      (function () {
+        var fs = require('fs');
+        var pid = fs.readFileSync('taskmanager.pid', 'utf8');
+        pid = parseInt(pid);
+        process.kill(pid);
+        console.log('Killed pid ' + pid);
         process.exit();
       })();
     }
@@ -109,3 +119,16 @@ process.chdir(args.path);
 
 })();
 
+// 记录进程PID
+(function () {
+  var fs = require('fs');
+  try {
+    fs.writeFile('taskmanager.pid', '' + process.pid, function (err) {
+      if (err) {
+        console.error(err.stack);
+      }
+    });
+  } catch (err) {
+    console.error(err.stack);
+  }
+})();

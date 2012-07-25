@@ -25,9 +25,10 @@ Usage:\n\
 \n\
 The options are:\n\
 \n\
-    -path [path]      set the working directory\n\
-    -service          run as a background service\n\
-    -logger [level]   set log output level\n\
+    -path [path]        set the working directory\n\
+    -service            run as a background service\n\
+    -logger [level]     set log output level\n\
+    -passwd [password]  encrypt password string and print\n\
 \n\
 Example:\n\
 \n\
@@ -51,6 +52,14 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
     } else if (k === 'help' || k === 'h') {
       console.log(help);
       process.exit();
+    } else if (k === 'passwd') {
+      (function () {
+        var utils = require('../lib/utils');
+        console.log('================================================');
+        console.log('|    ' + utils.encryptPassword(v) + '    |');
+        console.log('================================================');
+        process.exit();
+      })();
     }
   }
   var lines = [];

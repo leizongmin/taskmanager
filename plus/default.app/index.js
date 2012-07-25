@@ -71,13 +71,11 @@ var appInstance = function (p, config) {
   var logErr = this._logs.err;
   var self = this;
   p.stdout.on('data', function (data) {
-    process.stdout.write(data);
     logOut.push(data);
     logOut.shift();
     self.emit('log', data, 'out');
   });
   p.stderr.on('data', function (data) {
-    process.stderr.write(data);
     logErr.push(data);
     logErr.shift();
     self.emit('log', data, 'err');

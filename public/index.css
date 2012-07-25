@@ -28,6 +28,10 @@ body {
   max-width: 1200px;
   margin: auto;
   font-size: 14px;
+  background-color: white;
+  background-image: url(/grid-18px-masked.png);
+  background-repeat: repeat-x;
+  background-position: 0 40px;
 }
 body.home-page {
   border: 1px solid #EEE;

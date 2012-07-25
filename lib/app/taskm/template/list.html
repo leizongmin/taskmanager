@@ -12,7 +12,7 @@
     <td>{{task.type}}</td>
     <td>{{task.status}}</td>
     <td>
-      <a href="/plusui/{{task.type}}.app/#/status/{{task.id}}" class="btn">详细信息</a>
+      <a href="/plusui/{{task.type}}.app/#/status/{{task.id}}" onclick="parent.logsSwitchToTask('{{task.id}}')" class="btn">详细信息</a>
       <a href="#/task/stop/{{task.id}}" class="btn">停止</a>
     </td>
   </tr>

@@ -61,6 +61,11 @@ var logFilter = function (type, obj) {
     onLine('与服务器断开连接！正尝试重新连接，如果长时间无法连接，建议刷新页面。', 'warn');
     connectToServer();
   };
+
+  window.logsSwitchToTask = function (id) {
+    onLine('查看应用ID=' + id + '的控制台输出', 'info');
+    socket.emit('switch-app', id);
+  };
   
   var escapeString = escape = function (input) {
     return String(input)
@@ -83,8 +88,8 @@ var logFilter = function (type, obj) {
       type = 'log';
     else {
       var _type = type.split(':');
-      if (_type.length >= 2) {
-        var appname = _type[0];
+      if (_type.length >= 3) {
+        var appname = _type[1];
         type = _type[1];
       }
     }

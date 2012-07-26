@@ -3,5 +3,9 @@
   "main":     "data/test2.js",
   "type":     "cluster",
   "cluster":  2,
-  "log":      "/tmp/logs/test2.log"
+  "log":      "/tmp/logs/test2.log",
+  "args":    ["xx"],
+  "env": {
+    "ooxx":  "NO"
+  }
 }

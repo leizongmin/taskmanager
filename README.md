@@ -52,15 +52,23 @@ Taskmanager
 > **execPath**：Node命令路径，默认使用当前的Node版本，可在此处指定该应用需要的Node版本路径
 >
 > **args**：附加的启动参数（数组）
+>
+> **env**：附件的环境变量
 
 示例：
 
 ```
 {
-  "name":   "test3",
-  "main":   "data/test3.js",
-  "type":   "default",
-  "log":    "/tmp/logs/test3.log"
+  "name":       "test3",
+  "main":       "data/test3.js",
+  "type":       "default",
+  "log":        "/tmp/logs/test3.log",
+  "execPath":   "node",
+  "args":       ["abc", "efg"],
+  "env": {
+    "ooxx":     "yes",
+    "xxoo":     "the same"
+  }
 }
 ```
 

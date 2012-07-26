@@ -4,5 +4,8 @@
   "type":     "default",
   "log":      "/tmp/logs/test3.log",
   "execPath": "winnode-0.6",
-  "args":     ["123456", "dsdfs"]
+  "args":     ["123456", "dsdfs"],
+  "env": {
+    "ooxx":   "ok"
+  }
 }

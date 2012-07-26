@@ -48,6 +48,10 @@ Taskmanager
 > **log**：日志文件，如果不指定则不保存日志输出
 >
 > **cluster**：cluster进程数量，仅在`type=cluster`时有效
+>
+> **execPath**：Node命令路径，默认使用当前的Node版本，可在此处指定该应用需要的Node版本路径
+>
+>
 
 示例：
 

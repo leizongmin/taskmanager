@@ -1,6 +1,7 @@
 {
-  "name":   "test3",
-  "main":   "data/test3.js",
-  "type":   "default",
-  "log":    "/tmp/logs/test3.log"
+  "name":     "test3",
+  "main":     "data/test3.js",
+  "type":     "default",
+  "log":      "/tmp/logs/test3.log",
+  "execPath": "winnode-0.6"
 }

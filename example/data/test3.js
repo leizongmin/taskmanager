@@ -1,6 +1,5 @@
-
 setInterval(function () {
-  console.log('[' + process.pid + ']\t' + new Date());
+  console.log('[' + process.pid + ']\t' + new Date() + process.version);
   check();
 }, 2000);
 

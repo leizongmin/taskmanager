@@ -3,5 +3,6 @@
   "main":     "data/test3.js",
   "type":     "default",
   "log":      "/tmp/logs/test3.log",
-  "execPath": "winnode-0.6"
+  "execPath": "winnode-0.6",
+  "args":     ["123456", "dsdfs"]
 }

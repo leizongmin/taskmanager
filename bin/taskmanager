@@ -8,6 +8,11 @@
  * @author 老雷<leizongmin@gmail.com>
  */
 
+var path = require('path');
+var fs = require('fs');
+var child_process = require('child_process');
+var logger = require('../lib/logger');
+
 
 var args = {
   path:     '.',      // 运行目录
@@ -44,32 +49,50 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
     var k = opts[i].substr(1).toLowerCase();
     var j = i + 1;
     var v = opts[j] && opts[j];
-    if (k === 'service' || k === 's') {
-      args.service = true;
-    } else if (k === 'path' || k === 'p') {
-      args.path = v || args.path;
-    } else if (k === 'logger' || k === 'l') {
-      args.logger = v || args.logger;
-    } else if (k === 'help' || k === 'h') {
-      console.log(help);
-      process.exit();
-    } else if (k === 'passwd') {
-      (function () {
-        var utils = require('../lib/utils');
-        console.log('================================================');
-        console.log('|    ' + utils.encryptPassword(v) + '    |');
-        console.log('================================================');
+
+    switch (k) {
+
+      case 'service':
+      case 's':
+        args.service = true;
+        break;
+
+      case 'path':
+      case 'p':
+        args.path = path.resolve(v || args.path);
+        process.chdir(args.path);
+        break;
+
+      case 'logger':
+      case 'l':
+        args.logger = v || args.logger;
+        break;
+
+      case 'help':
+      case 'h':
+        console.log(help);
         process.exit();
-      })();
-    } else if (k === 'stop') {
-      (function () {
-        var fs = require('fs');
-        var pid = fs.readFileSync('taskmanager.pid', 'utf8');
-        pid = parseInt(pid);
-        process.kill(pid);
-        console.log('Killed pid ' + pid);
-        process.exit();
-      })();
+        break;
+
+      case 'passwd':
+        (function () {
+          var utils = require('../lib/utils');
+          console.log('================================================');
+          console.log('|    ' + utils.encryptPassword(v) + '    |');
+          console.log('================================================');
+          process.exit();
+        })();
+        break;
+
+      case 'stop':
+        (function () {
+          var pid = fs.readFileSync('taskmanager.pid', 'utf8');
+          pid = parseInt(pid);
+          process.kill(pid);
+          console.log('Killed pid ' + pid);
+          process.exit();
+        })();
+        break;
     }
   }
   var lines = [];
@@ -84,7 +107,6 @@ process.chdir(args.path);
 
 // 日志输出等级
 (function () {
-  var logger = require('../lib/logger');
   var level = {
     error:    1,
     warn:     2,
@@ -108,9 +130,6 @@ process.chdir(args.path);
 
 // 启动服务器
 (function () {
-  var child_process = require('child_process');
-  var fs = require('fs');
-  var path = require('path');
   if (args.service) {
     if (parseFloat(process.version.substr(1)) < 0.8) {
       console.log('Your Node.js version is less than v0.8, not support run as a background service.');
@@ -135,7 +154,6 @@ process.chdir(args.path);
 
 // 记录进程PID
 (function () {
-  var fs = require('fs');
   try {
     fs.writeFile('taskmanager.pid', '' + process.pid, function (err) {
       if (err) {

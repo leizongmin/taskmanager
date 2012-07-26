@@ -64,7 +64,7 @@ var logFilter = function (type, obj) {
 
   window.logsSwitchToTask = function (id) {
     onLine('查看应用ID=' + id + '的控制台输出', 'info');
-    socket.emit('switch-app', id);
+    socket.emit('switch-app', '' + id);
   };
   
   var escapeString = escape = function (input) {

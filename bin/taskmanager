@@ -112,7 +112,21 @@ process.chdir(args.path);
   var fs = require('fs');
   var path = require('path');
   if (args.service) {
-    console.log('Not support.');
+    if (parseFloat(process.version.substr(1)) < 0.8) {
+      console.log('Your Node.js version is less than v0.8, not support run as a background service.');
+      process.exit();
+    }
+    var as = [__filename, '-path', args.path, '-logger', args.logger];
+    var out = fs.createWriteStream('taskmanager.log');
+    out.on('open', function () {
+      var c = child_process.spawn(process.execPath, as, {
+        detached:   true,
+        stdio:      ['ignore', out, out]
+      });
+      console.log('Running as a background service.');
+      console.log('PID:' + c.pid);
+      process.exit();
+    });
   } else {
     require('../lib/server');
   }

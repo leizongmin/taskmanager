@@ -1,0 +1,20 @@
+<table width="100%">
+  <tr>
+    <td>正常输出</td>
+  </tr>
+  <tr>
+    <td>
+    <pre>{% for line in stdout %}{{line | escape}}{% endfor %}</pre>
+    </td>
+  </tr>
+</table>
+<table width="100%">
+  <tr>
+    <td>异常输出</td>
+  </tr>
+  <tr>
+    <td>
+    <pre>{% for line in stderr %}{{line | escape}}{% endfor %}</pre>
+    </td>
+  </tr>
+</table>

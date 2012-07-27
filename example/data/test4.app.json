@@ -1,0 +1,7 @@
+{
+  "name":     "test4",
+  "main":     "php",
+  "type":     "command",
+  "log":      "/tmp/logs/test4.log",
+  "args":     ["data/test4.php"]
+}

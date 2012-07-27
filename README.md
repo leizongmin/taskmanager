@@ -43,7 +43,7 @@ Taskmanager
 >
 > **main**：启动文件路径（必须）
 >
-> **type**：应用类型，`default`为创建一个普通进程（默认），`cluster`为创建多个cluster进程
+> **type**：应用类型，`default`为创建一个普通进程（默认），`cluster`为创建多个cluster进程，`command`为运行其他非Node.js文件
 >
 > **log**：日志文件，如果不指定则不保存日志输出
 >

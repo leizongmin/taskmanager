@@ -23,6 +23,7 @@
       {% if file.type == 'file' %}
       <a href="/admin/file/view?path={{file.path}}" target="_blank">浏览</a>
       <a href="#/file/edit?path={{file.path}}">编辑</a>
+      <a href="#/file/remove?path={{file.path}}">删除</a>
       {% endif %}
     </td>
   </tr>

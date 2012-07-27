@@ -42,6 +42,13 @@ var fn = function () {
   console.log('I am running...');
 };
 mkfile('data/myapp.js', '(' + fn.toString() + ')();');
+mkfile('taskmanager.json', {
+  port:           8860,
+  admin:          'admin',
+  password:       '3A:5B9AD333E3F867CB4666DB4702C315F0:FD',
+  loginFail:      5,
+  refuseTimeout:  60
+});
 
 
 console.log('OK.');

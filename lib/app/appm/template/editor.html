@@ -1,0 +1,58 @@
+<div style="width:780px; margin:auto">
+	<table width="100%">
+		<tr>
+			<td colspan="3" style="text-align:center">创建应用</td>
+		</tr>
+		<tr>
+			<td width="100">* 应用名称：</td>
+			<td width="200">
+        <input id="app-name" type="text" placeholder="myapp" value="{% if name %}{{name}}{% endif %}" {% if name %}disabled="false"{% endif %}>
+      </td>
+			<td class="explain">&nbsp;</td>
+		</tr>
+		<tr>
+			<td>* 主文件名：</td>
+			<td><input id="app-main" type="text" placeholder="/app/myapp.js" value="{% if main %}{{main}}{% endif %}"></td>
+			<td class="explain">要执行的文件名，见下面的<strong>应用类型</strong>中的说明</td>
+		</tr>
+		<tr>
+			<td>&nbsp; 应用类型：</td>
+			<td><input id="app-type" type="text" placeholder="default" value="{% if type %}{{type}}{% endif %}"></td>
+			<td class="explain">可以为<strong>default</strong>，<strong>cluster</strong>，<strong>command</strong>，若安装了自定义插件，可以为该插件的名称，默认为<strong>default</strong></td>
+		</tr>
+    <tr>
+			<td>&nbsp; 子进程数：</td>
+			<td><input id="app-cluster" type="text" placeholder="2" value="{% if cluster %}{{cluster}}{% endif %}"></td>
+			<td class="explain">要启动的cluster子进程数量，仅当应用类型为<strong>cluster</strong>，<strong>command</strong>时有效</td>
+		</tr>
+		<tr>
+			<td>&nbsp; 日志文件：</td>
+			<td><input id="app-log" type="text" placeholder="/app/myapp.log" value="{% if log %}{{log}}{% endif %}"></td>
+			<td class="explain">当指定了日志文件名时，会将该应用运行时产生的控制台输出保存到该日志文件中，默认不保存日志文件</td>
+		</tr>
+		<tr>
+			<td>&nbsp; 命令路径：</td>
+			<td><input id="app-execPath" type="text" placeholder="/usr/bin/node" value="{% if execPath %}{{execPath}}{% endif %}"></td>
+			<td class="explain">当应用类型为<strong>default</strong>或<strong>cluster</strong>时，可以通过此项来指定使用不同版本的Node.js来执行程序，默认使用当前的Node.js版本；
+				<br>当类型为<strong>command</strong>时，此项为要执行的命令名，若不指定则使用<strong>主文件名</strong>作为要执行的命令
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp; 启动参数：</td>
+			<td><input id="app-args" type="text" placeholder="arg1 arg2 arg3" value="{% if args %}{{args | join:" "}}{% endif %}"></td>
+			<td class="explain">附加的启动参数，用空格分割，如：arg1 arg2 arg3</td>
+		</tr>
+		<tr>
+			<td>&nbsp; 环境变量：</td>
+			<td><textarea id="app-env">{% if env %}{% assign keys=env|keys %}{% for n in keys %}{{n}}={{env|get:n}}
+{% endfor %}{% endif %}</textarea></td>
+			<td class="explain">附加的环境变量，每行一个，格式：<br>
+				name1=value1<br>
+				name2=value2
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" style="text-align:center"><a href="#/app/save" class="btn">保存</a></td>
+		</tr>
+	</table>
+</div>

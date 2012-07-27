@@ -27,7 +27,7 @@ exports.about = function () {
  * @return {string}
  */
 exports.appDescription = function (config) {
-  return '入口文件名：' + config.main + '，子进程数：' + config.cluster;
+  return '主文件名：' + config.main + '，子进程数：' + config.cluster;
 };
 
 /**

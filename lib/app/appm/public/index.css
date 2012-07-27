@@ -1,7 +1,15 @@
 
-textarea#app-config-json {
-  height: 300px;
-  padding: 8px;
-  font-size: 14px;
-  line-height: 1.6em;
+textarea, input[type=text] {
+	width: 180px;
+	padding: 2px 4px;
+	font-size: 14px;
+}
+.explain {
+	color: #444;
+	line-height: 1.6em;
+	font-size: 12px;
+}
+.explain strong {
+	color: #08C;
+	padding: 0px 2px;
 }

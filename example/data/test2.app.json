@@ -1,11 +1,1 @@
-{
-  "name":     "test2",
-  "main":     "data/test2.js",
-  "type":     "cluster",
-  "cluster":  2,
-  "log":      "/tmp/logs/test2.log",
-  "args":    ["xx"],
-  "env": {
-    "ooxx":  "NO"
-  }
-}
+{"name":"test2","main":"data/test2.js","type":"cluster","cluster":2,"execPath":"","log":"/tmp/logs/test2.log","args":["xx"],"env":{"ooxx":"NO"}}

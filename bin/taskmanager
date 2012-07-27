@@ -35,6 +35,7 @@ The options are:\n\
     -logger [level]     set log output level\n\
     -passwd [password]  encrypt password string and print\n\
     -stop               stop the taskmanager process\n\
+    -init                initialize a taskmanager project\n\
 \n\
 Example:\n\
 \n\
@@ -92,6 +93,10 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
           console.log('Killed pid ' + pid);
           process.exit();
         })();
+        break;
+
+      case 'init':
+        require('./init');
         break;
     }
   }

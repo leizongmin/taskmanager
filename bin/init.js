@@ -43,7 +43,7 @@ var fn = function () {
   console.log('I am running...');
 };
 mkfile('data/myapp.js', '(' + fn.toString() + ')();');
-mkfile('taskmanager.json', formatJSON(JSON.stringify({
+mkfile('config.json', formatJSON(JSON.stringify({
   port:           8860,
   admin:          'admin',
   password:       '3A:5B9AD333E3F867CB4666DB4702C315F0:FD',

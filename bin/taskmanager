@@ -12,6 +12,7 @@ var path = require('path');
 var fs = require('fs');
 var child_process = require('child_process');
 var logger = require('../lib/logger');
+var utils = require('../lib/utils');
 
 
 var args = {
@@ -35,7 +36,7 @@ The options are:\n\
     -logger [level]     set log output level\n\
     -passwd [password]  encrypt password string and print\n\
     -stop               stop the taskmanager process\n\
-    -init                initialize a taskmanager project\n\
+    -init               initialize a taskmanager project\n\
 \n\
 Example:\n\
 \n\
@@ -133,6 +134,52 @@ process.chdir(args.path);
   }
 })();
 
+
+// 安全验证
+(function () {
+  var warnFirstLine = true;
+  var warn = function (msg) {
+    if (warnFirstLine) {
+      console.log('=========================================================');
+      warnFirstLine = false;
+    }
+    console.log('\x1B[33m' + msg + '\x1B[39m');
+  };
+  var die = function () {
+    process.exit();
+  };
+  // 检查当前目录下是否有taskmanager.json配置文件
+  try {
+    var config = require(path.resolve('./config'));
+  } catch (err) {
+    warn('Cannot find config file! Please run the following command to initialize a taskmanager project:')
+    warn('');
+    warn('    taskmanager -init');
+    die();
+  }
+  // 检查是否已设置了密码
+  if (typeof config.password !== 'string') {
+    warn('Miss the manage password! Please run the following command to encrypt password string and set up the config file.')
+    warn('');
+    warn('    taskmanager -passwd <Your password>');
+    die();
+  }
+  // 检查弱口令
+  var weakPwds = [
+    config.admin,
+    'admin', 'password', 'pwd',
+    'abc', 'abcd', 'abcde', 'abcdef', 'abcdefg',
+    '123', '1234', '12345', '123456', '1234567', '12345678'
+  ];
+  weakPwds.forEach(function (pwd) {
+    if (utils.validatePassword(pwd, config.password)) {
+      warn('Your password is "' + pwd + '", it\'s too simple!');
+      die();
+    }
+  });
+})();
+
+
 // 启动服务器
 (function () {
   if (args.service) {
@@ -154,7 +201,6 @@ process.chdir(args.path);
   } else {
     require('../lib/server');
   }
-
 })();
 
 // 记录进程PID

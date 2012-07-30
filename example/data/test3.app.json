@@ -7,5 +7,6 @@
   "args":     ["123456", "dsdfs"],
   "env": {
     "ooxx":   "ok"
-  }
+  },
+  "schedule": "* * * * *"
 }

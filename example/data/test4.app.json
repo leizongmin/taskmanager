@@ -1,1 +1,1 @@
-{"name":"test4","main":"php","type":"command","execPath":"","log":"/tmp/logs/test4.log","args":["data/test4.php"],"env":{"ooxx":"true","xxoo":"fal"}}
+{"name":"test4","main":"php","type":"command","execPath":"","log":"/tmp/logs/test4.log","args":["data/test4.php"],"env":{"ooxx":"true","xxoo":"fal"},"schedule":"* * * * *"}

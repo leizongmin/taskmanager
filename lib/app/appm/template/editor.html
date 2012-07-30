@@ -37,6 +37,12 @@
 				<br>当类型为<strong>command</strong>时，此项为要执行的命令名，若不指定则使用<strong>主文件名</strong>作为要执行的命令
 			</td>
 		</tr>
+    <tr>
+			<td>计划时间表：</td>
+			<td><input id="app-schedule" type="text" placeholder="0 0 * * * " value="{% if schedule %}{{schedule}}{% endif %}"></td>
+			<td class="explain">支持Linux系统下的<strong>cron</strong>服务的语法，如每小时启动一次：<strong>0 * * * *</strong>
+			</td>
+		</tr>
 		<tr>
 			<td>&nbsp; 启动参数：</td>
 			<td><input id="app-args" type="text" placeholder="arg1 arg2 arg3" value="{% if args %}{{args | join:" "}}{% endif %}"></td>

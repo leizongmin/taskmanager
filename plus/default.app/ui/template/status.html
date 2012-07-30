@@ -4,7 +4,12 @@
     <td>值</td>
   </tr>
   <tr>
+  {% if schedule %}
+    <td>时间表</td>
+    <td>{{schedule}}</td>
+  {% else %}
     <td>进程PID</td>
     <td>{{pid}}</td>
+  {% endif %}
   </tr>
 </table>

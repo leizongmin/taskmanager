@@ -1,7 +1,7 @@
 {
   "port":           8860,
   "admin":          "admin",
-  "password":       "78:720461A35C42528CC9E92CD65BABF898:3A",
+  "password":       "FF:15855D447208A6AB4BD2CC88D4B91732:83",
   "loginFail":      5,
   "refuseTimeout":  60
 }

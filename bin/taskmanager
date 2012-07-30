@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-'use strict';
 
 /**
  * taskmanager cli
@@ -31,12 +30,14 @@ Usage:\n\
 \n\
 The options are:\n\
 \n\
-    -path [path]        set the working directory\n\
-    -service            run as a background service\n\
-    -logger [level]     set log output level\n\
-    -passwd [password]  encrypt password string and print\n\
-    -stop               stop the taskmanager process\n\
-    -init               initialize a taskmanager project\n\
+    -path <path>        Set the working directory\n\
+    -service            Run as a background service\n\
+    -logger <level>     Set log output level\n\
+    -passwd <password>  Encrypt password string and print\n\
+    -stop               Stop the taskmanager process\n\
+    -init               Initialize a taskmanager project\n\
+    -help               Show this help information\n\
+    -version            Show the taskmanager version\n\
 \n\
 Example:\n\
 \n\
@@ -74,6 +75,15 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
       case 'h':
         console.log(help);
         process.exit();
+        break;
+
+      case 'version':
+      case 'v':
+        (function () {
+          var package = require('../package.json');
+          console.log(package.version);
+          process.exit();
+        })();
         break;
 
       case 'passwd':

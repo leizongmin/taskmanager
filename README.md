@@ -7,85 +7,82 @@ Taskmanager
 快速入门
 ================
 
-* 安装：`npm install taskmanager -g`
+1. 安装：`npm install taskmanager -g`
 
-* 新建一个工作目录：`mkdir mytask && cd mytask`
+2. 新建一个工作目录：`mkdir mytask && cd mytask`
 
-* 创建配置文件：`config.json`
+3. 初始化taskmanager配置：`taskmanager -init`
 
-```
-{
-  "port":           8860,
-  "admin":          "admin",
-  "password":       "3A:5B9AD333E3F867CB4666DB4702C315F0:FD",
-  "loginFail":      5,
-  "refuseTimeout":  60
-}
-```
+4. 配置后台管理密码：
 
-> **port**：管理后台监听的端口
->
-> **admin**：管理源账户
->
-> **password**：管理密码，该加密字符串可通过以下方式获取到：执行命令`taskmanager -passwd 密码`
->
-> **loginFail**：登录失败最多的尝试次数，超过该数量后会屏蔽该IP地址一段时间
->
-> **refuseTimeout**：屏蔽的时间，单位为秒
+    + 打开当前目录下的`config.json`文件
 
-* 创建一个数据目录：`mkdir data`
+    + 执行`taskmanager -passwd <你的密码>`来获取加密后的密码字符串
 
-* 新建一个任务：新建文件`test.app.json`和文件`test.js`
+    + 用此密码来替换配置文件中的`password`项
 
-**test.app.json**为应用配置文件，包括一下项：
+    **注意**：由于配置密码不当会危及服务器安全，所以必须设置一个较强的密码，太简单的密码将不能启动taskmanager
 
-> **name**：应用名称（必须）
->
-> **main**：启动文件路径（必须）
->
-> **type**：应用类型，`default`为创建一个普通进程（默认），`cluster`为创建多个cluster进程，`command`为运行其他非Node.js文件
->
-> **log**：日志文件，如果不指定则不保存日志输出
->
-> **cluster**：cluster进程数量，仅在`type=cluster`时有效
->
-> **execPath**：Node命令路径，默认使用当前的Node版本，可在此处指定该应用需要的Node版本路径
->
-> **args**：附加的启动参数（数组）
->
-> **env**：附件的环境变量
+5. 启动任务管理器：`taskmanager`
 
-示例：
+6. 打开页面http://127.0.0.1:8860，输入账户`admin`及密码`admin`登录
 
-```
-{
-  "name":       "test3",
-  "main":       "data/test3.js",
-  "type":       "default",
-  "log":        "/tmp/logs/test3.log",
-  "execPath":   "node",
-  "args":       ["abc", "efg"],
-  "env": {
-    "ooxx":     "yes",
-    "xxoo":     "the same"
-  }
-}
-```
+7. 点顶栏菜单中的`应用`，并在应用`test`行中点`启动`按钮
 
-**test.js**为Node.js程序内容，比如：
+8. 点顶栏菜单中的`进程`，可看到进程`test`已在运行，点该行的`详细信息`可看到该进程相关信息
+
+9. 在屏幕下方可显示该进程的控制台输出内容
+
+
+命令行工具
+==================
+
+**taskmanager [option1] [option2] ...**
+
+* 查看帮助信息：`-help` 或 `-h`
+
+* 设置运行目录：`-path <目录>` 或 `-p <目录>`，若不指定运行目录，则使用当前目录。
+
+* 在后台运行：`-service` 或 `-s`
+
+* 日志记录器输出等级：`-logger <等级>` 或 `-l <等级>`，等级可选值为：`error`，`warn`，`info`，`log`，`debug`
+
+* 获取加密的密码字符串：`-passwd <密码>`，用于设置配置文件中的密码项
+
+* 停止当前目录下运行的taskmanager：`-stop`
+
+* 在当前目录下初始化一个taskmanager项目：`-init`
+
+* 显示taskmanager版本号：`-version` 或 `-v`
+
+
+授权
+=================
+
+你可以在遵守**MIT Licence**的前提下随意使用并分发它。
 
 ```
-setInterval(function () {
-  console.log('hello!');
-}, 1000);
+Copyright (c) 2012 Lei Zongmin <leizongmin@gmail.com>
+http://ucdok.com
+
+The MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ```
-
-* 启动任务管理器：`taskmanager`
-
-* 打开页面http://127.0.0.1:8860，输入账户`admin`及密码`admin`登录
-
-* 点顶栏菜单中的`应用`，并在应用`test`行中点`启动`按钮
-
-* 点顶栏菜单中的`进程`，可看到进程`test`已在运行，点该行的`详细信息`可看到该进程相关信息
-
-* 在屏幕下方可显示该进程的控制台输出内容

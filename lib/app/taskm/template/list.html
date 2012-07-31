@@ -1,14 +1,16 @@
 <table width="100%">
   <tr>
-    <td width="100">ID</td>
+    <td width="80">ID</td>
+    <td width="100">名称</td>
     <td width="100">类型</td>
     <td>说明</td>
-    <td width="200">操作</td>
+    <td width="150">操作</td>
   </tr>
   {% if list.length > 0 %}
   {% for task in list %}
   <tr>
     <td>{{task.id}}</td>
+    <td>{{task.name}}</td>
     <td>{% if task.schedule %}schedule:{% endif %}{{task.type}}</td>
     <td>{% if task.schedule %}时间表：{{task.schedule}}，{% endif %}{{task.status}}</td>
     <td>

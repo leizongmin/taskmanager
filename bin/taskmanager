@@ -15,7 +15,7 @@ var utils = require('../lib/utils');
 if (process.platform === 'win32')
   var processStat = require('./lib/process_stat_win');
 else
-  var processStat = require('process_stat_linux');
+  var processStat = require('./lib/process_stat_linux');
 
 
 var warn = function (msg) {

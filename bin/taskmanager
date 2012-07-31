@@ -55,7 +55,7 @@ Example:\n\
 \n\
     taskmanager -path /app/test -logger warn -service\n\
 \n\
-For more information, please vist https://github.com/quickweb/taskmanager\n\
+For more information, please vist \x1B[36mhttps://github.com/quickweb/taskmanager\x1B[39m\n\
   ';
   var opts = process.argv.slice(2);
   for (var i = 0; i < opts.length; i++) {

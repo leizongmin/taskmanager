@@ -18,6 +18,14 @@ else
   var processStat = require('process_stat_linux');
 
 
+var warn = function (msg) {
+  console.log('\x1B[33m' + msg + '\x1B[39m');
+};
+var info = function (msg) {
+  console.log('\x1B[36m' + msg + '\x1B[39m');
+};
+
+
 var args = {
   path:     '.',      // 运行目录
   service:  false,    // 以后台服务形式运行
@@ -102,12 +110,6 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
 
       case 'stop':
         (function () {
-          var warn = function (msg) {
-            console.log('\x1B[33m' + msg + '\x1B[39m');
-          };
-          var info = function (msg) {
-            console.log('\x1B[36m' + msg + '\x1B[39m');
-          };
           try {
             var pid = fs.readFileSync('taskmanager.pid', 'utf8');
             pid = parseInt(pid);
@@ -178,14 +180,6 @@ process.chdir(args.path);
 
 // 安全验证
 (function () {
-  var warnFirstLine = true;
-  var warn = function (msg) {
-    if (warnFirstLine) {
-      console.log('=========================================================');
-      warnFirstLine = false;
-    }
-    console.log('\x1B[33m' + msg + '\x1B[39m');
-  };
   var die = function () {
     process.exit();
   };
@@ -193,6 +187,7 @@ process.chdir(args.path);
   try {
     var config = require(path.resolve('./config'));
   } catch (err) {
+    warn('');
     warn('Cannot find config file! Please run the following command to initialize a taskmanager project:')
     warn('');
     warn('    taskmanager -init');
@@ -200,6 +195,7 @@ process.chdir(args.path);
   }
   // 检查是否已设置了密码
   if (typeof config.password !== 'string') {
+    warn('');
     warn('Miss the manage password! Please run the following command to encrypt password string and set up the config file.')
     warn('');
     warn('    taskmanager -passwd <Your password>');
@@ -214,6 +210,7 @@ process.chdir(args.path);
   ];
   weakPwds.forEach(function (pwd) {
     if (utils.validatePassword(pwd, config.password)) {
+      warn('');
       warn('Your password is "' + pwd + '", it\'s too simple!');
       die();
     }
@@ -222,12 +219,6 @@ process.chdir(args.path);
 
 
 var doStart = function () {
-  var warn = function (msg) {
-    console.log('\x1B[33m' + msg + '\x1B[39m');
-  };
-  var info = function (msg) {
-    console.log('\x1B[36m' + msg + '\x1B[39m');
-  };
 
   // 启动服务器
   (function () {
@@ -270,10 +261,6 @@ var doStart = function () {
 
 // 检查服务器是否正在运行及上次退出时是否有未结束的进程
 (function () {
-  var warn = function (msg) {
-    console.log('\x1B[33m' + msg + '\x1B[39m');
-  };
-
   if (!fs.existsSync('taskmanager.pid')) {
     var tpid = -1;
   } else {

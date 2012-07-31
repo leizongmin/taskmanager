@@ -12,6 +12,10 @@ var fs = require('fs');
 var child_process = require('child_process');
 var logger = require('../lib/logger');
 var utils = require('../lib/utils');
+if (process.platform === 'win32')
+  var processStat = require('./lib/process_stat_win');
+else
+  var processStat = require('process_stat_linux');
 
 
 var args = {
@@ -98,11 +102,35 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
 
       case 'stop':
         (function () {
-          var pid = fs.readFileSync('taskmanager.pid', 'utf8');
-          pid = parseInt(pid);
-          process.kill(pid);
-          console.log('Killed pid ' + pid);
-          fs.unlinkSync('taskmanager.pid');
+          var warn = function (msg) {
+            console.log('\x1B[33m' + msg + '\x1B[39m');
+          };
+          var info = function (msg) {
+            console.log('\x1B[36m' + msg + '\x1B[39m');
+          };
+          try {
+            var pid = fs.readFileSync('taskmanager.pid', 'utf8');
+            pid = parseInt(pid);
+            process.kill(pid);
+            info('Killed pid ' + pid);
+            fs.unlinkSync('taskmanager.pid');
+          } catch (err) {
+            warn('Killed pid ' + pid + ' ' + err.stack);
+          }
+          try {
+            var tasks = JSON.parse(fs.readFileSync('processes.json'), 'utf8');
+            tasks.forEach(function (t) {
+              try {
+                process.kill(t.pid);
+                info('Killed pid ' + t.pid);
+              } catch (err) {
+                warn('Killed pid ' + t.pid + ' ' + err.stack);
+              }
+            });
+            fs.unlinkSync('processes.json');
+          } catch (err) {
+            warn('Killed tasks ' + err.stack);
+          }
           process.exit();
         })();
         break;
@@ -119,8 +147,10 @@ For more information, please vist https://github.com/quickweb/taskmanager\n\
   console.log(lines.join(', '));
 })();
 
+
 // 工作目录
 process.chdir(args.path);
+
 
 // 日志输出等级
 (function () {
@@ -192,11 +222,19 @@ process.chdir(args.path);
 
 
 var doStart = function () {
+  var warn = function (msg) {
+    console.log('\x1B[33m' + msg + '\x1B[39m');
+  };
+  var info = function (msg) {
+    console.log('\x1B[36m' + msg + '\x1B[39m');
+  };
+
   // 启动服务器
   (function () {
     if (args.service) {
       if (parseFloat(process.version.substr(1)) < 0.8) {
-        console.log('Your Node.js version is less than v0.8, not support run as a background service.');
+        warn('');
+        warn('Your Node.js version is less than v0.8, not support run as a background service.');
         process.exit();
       }
       var as = [__filename, '-path', args.path, '-logger', args.logger];
@@ -206,8 +244,8 @@ var doStart = function () {
           detached:   true,
           stdio:      ['ignore', out, out]
         });
-        console.log('Running as a background service.');
-        console.log('PID:' + c.pid);
+        info('Running as a background service.');
+        info('PID:' + c.pid);
         process.exit();
       });
     } else {
@@ -220,42 +258,84 @@ var doStart = function () {
     try {
       fs.writeFile('taskmanager.pid', '' + process.pid, function (err) {
         if (err) {
-          console.error(err.stack);
+          warn(err.stack);
         }
       });
     } catch (err) {
-      console.error(err.stack);
+      warn(err.stack);
     }
   })();
 };
 
 
-// 检查服务器是否正在运行
+// 检查服务器是否正在运行及上次退出时是否有未结束的进程
 (function () {
   var warn = function (msg) {
     console.log('\x1B[33m' + msg + '\x1B[39m');
   };
 
-  if (!fs.existsSync('taskmanager.pid'))
-    return doStart();
-  var pid = parseInt(fs.readFileSync('taskmanager.pid', 'utf8'), 10);
-  if (isNaN(pid))
+  if (!fs.existsSync('taskmanager.pid')) {
+    var tpid = -1;
+  } else {
+    var tpid = parseInt(fs.readFileSync('taskmanager.pid', 'utf8'), 10);
+    if (isNaN(tpid))
+      tpid = -1;
+  }
+
+  if (!fs.existsSync('processes.json')) {
+    var oldps = [];
+  } else {
+    try {
+      var oldps = JSON.parse(fs.readFileSync('processes.json', 'utf8'));
+      if (!Array.isArray(oldps))
+        oldps = [];
+    } catch (err) {
+      oldps = [];
+    }
+  }
+
+  var pids = [];
+  if (tpid > 0)
+    pids.push(tpid);
+  oldps.forEach(function (t) {
+    pids.push(t.pid);
+  });
+  
+  if (pids.length < 1)
     return doStart();
 
-  if (process.platform === 'win32')
-    var processStat = require('./lib/process_stat_win');
-  else
-    var processStat = require('process_stat_linux');
-  
-  processStat([pid], function (err, tasks) {
+  processStat(pids, function (err, tasks) {
     if (err)
       return warn(err.stack);
-    if (pid in tasks) {
+
+    if (tpid in tasks) {
       warn('');
-      warn('The taskmanager service is already running! PID: ' + pid);
+      warn('The taskmanager service is already running! PID: ' + tpid);
       process.exit();
-    } else {
-      doStart();
     }
+
+    var hasOldProcess = false;
+    oldps.forEach(function (t) {
+      if (t.pid in tasks) {
+        if (hasOldProcess === false) {
+          warn('');
+          warn('When the taskmanager was stopped, the following tasks were not exit :');
+        }
+        hasOldProcess = true;
+        warn('--------------------------------------------');
+        warn('PID:  ' + t.pid);
+        warn('Name: ' + t.name)
+        warn('Main: ' + t.main);
+        warn('--------------------------------------------');
+      }
+    });
+    if (hasOldProcess) {
+      warn('');
+      warn('Please run this command to stop all these tasks first:');
+      warn('    taskmanager -stop');
+      process.exit();
+    }
+
+    doStart();
   });
 })();

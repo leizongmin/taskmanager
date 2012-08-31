@@ -48,11 +48,23 @@
     <td>{{taskmanager.uptime | divided_by:3600 | round: 1}}小时</td>
   </tr>
   <tr>
-    <td>物理内存</td>
+    <td>TaskManager资源内存</td>
+    <td>{{taskmanager.rss | divided_by:1048576 | integer}}MB</td>
+  </tr>
+  <tr>
+    <td>TaskManager堆内存使用</td>
+    <td>{{taskmanager.heapused | divided_by:1048576 | integer}}MB</td>
+  </tr>
+  <tr>
+    <td>TaskManager堆内存</td>
+    <td>{{taskmanager.heaptotal | divided_by:1048576 | integer}}MB</td>
+  </tr>
+  <tr>
+    <td>系统物理内存</td>
     <td>{{totalmem | divided_by:1048576 | integer}}MB</td>
   </tr>
   <tr>
-    <td>空闲内存</td>
+    <td>系统空闲内存</td>
     <td>{{freemem | divided_by:1048576 | integer}}MB</td>
   </tr>
 </table>

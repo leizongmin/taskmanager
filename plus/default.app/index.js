@@ -11,6 +11,11 @@ var path = require('path');
 var util = require('util');
 var events = require('events');
 
+// 深度复制
+function copyObject (obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 /**
  * 简介
  *
@@ -39,12 +44,13 @@ exports.appDescription = function (config) {
  * @param {function} callback
  */
 exports.run = function (config, callback) {
+  config = copyObject(config);
   if (!config.main)
     return callback(new Error('Miss paramater "main"'));
   if (!Array.isArray(config.args))
     config.args = [];
   config.args.unshift(config.main);
-  
+
   try {
     var p = spawn(config.execPath || process.execPath, config.args, {env: config.env});
     var ret = new appInstance(p, config);

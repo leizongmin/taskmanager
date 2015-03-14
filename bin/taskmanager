@@ -25,6 +25,11 @@ var info = function (msg) {
   console.log('\x1B[36m' + msg + '\x1B[39m');
 };
 
+var isNodeVersionTooLow = function () {
+  var s = process.version.split('.');
+  return (s[0].substr(1) < 0 && s[1] < 8);
+};
+
 
 var args = {
   path:     '.',      // 运行目录
@@ -223,7 +228,7 @@ var doStart = function () {
   // 启动服务器
   (function () {
     if (args.service) {
-      if (parseFloat(process.version.substr(1)) < 0.8) {
+      if (isNodeVersionTooLow()) {
         warn('');
         warn('Your Node.js version is less than v0.8, not support run as a background service.');
         process.exit();

@@ -1,6 +1,8 @@
 Taskmanager
 ================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/leizongmin/taskmanager.svg)](https://greenkeeper.io/)
+
 **taskmanager**是一个基于Node.js的任务管理器，方便统一管理运行的Node.js程序。
 
 
